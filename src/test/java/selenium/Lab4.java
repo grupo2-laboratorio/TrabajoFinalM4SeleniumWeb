@@ -41,35 +41,341 @@ public class Lab4 {
     driver.quit();
   }
   @Test
-  public void Lab4() throws InterruptedException {
+  public void caso1() {
     driver.get("https://devops-lab4.herokuapp.com/");
-    driver.manage().window().setSize(new Dimension(1792, 1120));
+    int ahorro = 1000000;
+    int sueldo = 1500000;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
     driver.findElement(By.id("saldo")).click();
-    driver.findElement(By.id("saldo")).sendKeys("10000000");
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
     driver.findElement(By.id("sueldo")).click();
-    driver.findElement(By.id("sueldo")).sendKeys("1600000");
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
     driver.findElement(By.cssSelector(".btn")).click();
-    
-    TimeUnit.SECONDS.sleep(2);
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
 
-    driver.findElement(By.cssSelector("body")).click();
-    driver.findElement(By.id("saldo")).sendKeys("460000000");
-    driver.findElement(By.id("sueldo")).click();
-    driver.findElement(By.id("sueldo")).click();
-    {
-      WebElement element = driver.findElement(By.id("sueldo"));
-      Actions builder = new Actions(driver);
-      builder.doubleClick(element).perform();
-    }
-    driver.findElement(By.id("sueldo")).sendKeys("0");
-    driver.findElement(By.cssSelector(".btn")).click();
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = ahorro;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0*diezPorCiento);
 
-    TimeUnit.SECONDS.sleep(2);
-    driver.findElement(By.cssSelector("body")).click();
-    driver.findElement(By.id("saldo")).sendKeys("35000000");
-    driver.findElement(By.cssSelector(".form-outline:nth-child(2)")).click();
-    driver.findElement(By.cssSelector("body")).click();
-    driver.findElement(By.id("sueldo")).sendKeys("1800000");
-    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
   }
+    public void caso2() {    
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 4370250;
+    int sueldo = 1500000;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = uf*35;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso3() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 1000000;
+    int sueldo = 1500001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = ahorro;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.0452*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso4() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 4370250;
+    int sueldo = 1500001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = uf*150;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.0452*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso5() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 1000000;
+    int sueldo = 2500001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = ahorro;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.0709*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso6() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 4370250;
+    int sueldo = 2500001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = uf*150;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.0709*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso7() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 1000000;
+    int sueldo = 3000001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = ahorro;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.1062*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso8() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 4370250;
+    int sueldo = 3000001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = uf*150;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.1062*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso9() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 1000000;
+    int sueldo = 4000001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = ahorro;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.1557*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso10() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 4370250;
+    int sueldo = 4000001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = uf*150;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.1557*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso9() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 1000000;
+    int sueldo = 6000001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = ahorro;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.2748*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+    public void caso10() {
+    driver.get("https://devops-lab4.herokuapp.com/");
+    int ahorro = 4370250;
+    int sueldo = 6000001;
+    vars.put("sueldo", sueldo);
+    vars.put("ahorro", ahorro);
+    driver.findElement(By.id("saldo")).click();
+    driver.findElement(By.id("saldo")).sendKeys(vars.get("ahorro").toString());
+    driver.findElement(By.id("sueldo")).click();
+    driver.findElement(By.id("sueldo")).sendKeys(vars.get("sueldo").toString());
+    driver.findElement(By.cssSelector(".btn")).click();
+    vars.put("uf", driver.findElement(By.xpath("//tr[6]/td[2]")).getText());
+
+    int uf = Integer.parseInt(vars.get("uf"));
+    int diezPorCiento = uf*150;
+    int saldo = ahorro - diezPorCiento;
+    int impuesto = Math.round(0.2748*diezPorCiento);
+
+    vars.put("diezPorCiento",diezPorCiento);
+    vars.put("saldo",saldo);
+    vars.put("impuesto",impuesto);
+
+    assertThat(driver.findElement(By.xpath("//tr[1]/td[2]")).getText(), is("vars.get(\"diezPorCiento\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[2]/td[2]")).getText(), is("vars.get(\"saldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[3]/td[2]")).getText(), is("vars.get(\"impuesto\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[4]/td[2]")).getText(), is("vars.get(\"sueldo\").toString()"));
+    assertThat(driver.findElement(By.xpath("//tr[5]/td[2]")).getText(), is("vars.get(\"ahorro\").toString()"));
+  }
+  
 }
